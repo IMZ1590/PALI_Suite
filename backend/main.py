@@ -5,8 +5,10 @@ from typing import List
 import os
 import re
 import numpy as np
+import sys
+sys.path.append(os.path.dirname(os.path.abspath(__file__)))
 from analyzer import load_nmr_data, run_pca_and_fit, parse_bruker_param, run_3way_analysis, fit_with_regime_constraint
-app = FastAPI()
+app = FastAPI(title="PPALI 2")
 app.add_middleware(
     CORSMiddleware,
     allow_origins=["*"],
