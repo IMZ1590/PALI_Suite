@@ -16,7 +16,9 @@ app.add_middleware(
     allow_headers=["*"],
 )
 FRONTEND_PATH = os.path.join(os.path.dirname(os.path.dirname(os.path.abspath(__file__))), "frontend", "index.html")
-ALLOWED_ROOT = os.environ.get("ALLOWED_ROOT", "/home/minjune")
+# Robust cross-platform root detection
+ALLOWED_ROOT = os.environ.get("ALLOWED_ROOT", os.path.expanduser("~"))
+# On Windows, os.path.expanduser("~") usually returns C:\Users\Username
 def ensure_safe_path(path: str):
     abs_path = os.path.abspath(path)
     if not abs_path.startswith(os.path.abspath(ALLOWED_ROOT)):

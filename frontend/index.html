@@ -309,7 +309,7 @@
                     path = path.replace(/^file:\/\/(localhost)?/, '');
                     path = decodeURIComponent(path);
                 }
-                path = path.split(/[\r\n]+/)[0].replace(/\/$/, '').trim();
+                path = path.split(/[\r\n]+/)[0].replace(/[/\\]+$/, '').trim();
                 document.getElementById('dir-path').value = path;
                 console.log("Final set path:", path);
             } else {
