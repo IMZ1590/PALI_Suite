@@ -1,7 +1,14 @@
-FROM nginx:alpine
+FROM python:3.10-slim
 
-# Copy all static content (index.html, assets/, packages/) to Nginx root
-COPY . /usr/share/nginx/html
+WORKDIR /app
 
-# Expose HTTP port
-EXPOSE 80
+# Install dependencies
+COPY requirements.txt .
+RUN pip install --no-cache-dir -r requirements.txt
+
+# Copy application files
+COPY . .
+
+# Run the application
+# Render sets the PORT environment variable automatically
+CMD ["sh", "-c", "uvicorn main:app --host 0.0.0.0 --port ${PORT:-8000}"]
